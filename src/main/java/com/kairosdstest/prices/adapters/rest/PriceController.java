@@ -31,7 +31,7 @@ public class PriceController {
      */
     @GetMapping("/prices")
     public ResponseEntity<PriceResponse> getPrice(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date applicationDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date applicationDate,
             @RequestParam Long productId,
             @RequestParam Long brandId) {
         Price price = priceService.getPrice(brandId, productId, applicationDate);
