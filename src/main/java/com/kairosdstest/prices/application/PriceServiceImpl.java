@@ -13,8 +13,15 @@ import java.util.List;
  */
 @Service
 public class PriceServiceImpl implements PriceService {
+
     @Override
     public List<Price> findPrices(Long brandId, Long productId, Date applicationDate) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public Price getPrice(Long brandId, Long productId, Date applicationDate) {
         // TODO
         return null;
     }

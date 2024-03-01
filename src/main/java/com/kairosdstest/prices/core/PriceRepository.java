@@ -1,15 +1,17 @@
 package com.kairosdstest.prices.core;
 
-import org.springframework.data.repository.RepositoryDefinition;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Custom repository definition for managing {@link Price} entities.
  */
-@RepositoryDefinition(domainClass = Price.class, idClass = Long.class)
-public interface PriceRepository {
+@Repository
+public interface PriceRepository extends JpaRepository<Price, Long> {
 
     /**
      * Finds a {@link Price} based on the given parameters.
@@ -20,7 +22,13 @@ public interface PriceRepository {
      * @param endDate   the end date for the price
      * @return the matching {@link Price} entity or {@code null} if not found
      */
-    Price findPriceByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfter(
+    List<Price> findAllByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfter(
+            @Param("productId") Long productId,
+            @Param("brandId") Long brandId,
+            @Param("startDate") Date startDate,
+            @Param("endDate") Date endDate);
+
+    Price findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
             @Param("productId") Long productId,
             @Param("brandId") Long brandId,
             @Param("startDate") Date startDate,

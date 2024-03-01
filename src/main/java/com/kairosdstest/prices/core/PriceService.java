@@ -17,4 +17,14 @@ public interface PriceService {
      * @return A list of prices matching the criteria.
      */
     List<Price> findPrices(Long brandId, Long productId, Date applicationDate);
+
+    /**
+     * Find price based on brand, product, and application date.
+     *
+     * @param brandId         The brand identifier.
+     * @param productId       The product identifier.
+     * @param applicationDate The date of application.
+     * @return A list of prices matching the criteria.
+     */
+    Price getPrice(Long brandId, Long productId, Date applicationDate);
 }
