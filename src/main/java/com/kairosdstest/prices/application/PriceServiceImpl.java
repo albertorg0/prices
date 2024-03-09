@@ -3,7 +3,7 @@ package com.kairosdstest.prices.application;
 
 import com.kairosdstest.prices.core.NoResultsException;
 import com.kairosdstest.prices.core.Price;
-import com.kairosdstest.prices.adapters.persistance.CustomPriceRepository;
+import com.kairosdstest.prices.core.PriceRepository;
 import com.kairosdstest.prices.core.PriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class PriceServiceImpl implements PriceService {
 
-    private final CustomPriceRepository priceRepository;
+    private final PriceRepository priceRepository;
 
     @Override
     public Price getPrice(Long brandId, Long productId, Date applicationDate) {
