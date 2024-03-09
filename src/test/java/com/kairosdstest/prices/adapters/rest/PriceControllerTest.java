@@ -45,7 +45,7 @@ public class PriceControllerTest {
         assertEquals(expectedPriceList, response.getPriceList());
         assertEquals(expectedStartDate, response.getStartDate());
         assertEquals(expectedEndDate, response.getEndDate());
-        assertEquals(expectedFinalPrice, response.getFinalPrice());
+        assertEquals(expectedFinalPrice, response.getPrice());
     }
 
     // Helper method to create a mocked Price object

@@ -1,8 +1,8 @@
 package com.kairosdstest.prices.adapters.rest;
 
-import com.kairosdstest.prices.core.Price;
 import com.kairosdstest.prices.core.PriceService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,24 +34,10 @@ public class PriceController {
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date applicationDate,
             @RequestParam Long productId,
             @RequestParam Long brandId) {
-        Price price = priceService.getPrice(brandId, productId, applicationDate);
-        if (price != null) {
-            PriceResponse response = mapToResponseDto(price);
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
-    // Mapping method using the builder
-    private PriceResponse mapToResponseDto(Price price) {
-        return PriceResponse.builder()
-                .productId(price.getProductId())
-                .brandId(price.getBrandId())
-                .priceList(price.getPriceList())
-                .startDate(price.getStartDate())
-                .endDate(price.getEndDate())
-                .finalPrice(price.getPrice().doubleValue())
-                .build();
+        ModelMapper modelMapper = new ModelMapper();
+        PriceResponse response = modelMapper
+                .map(priceService.getPrice(brandId, productId, applicationDate), PriceResponse.class);
+        return ResponseEntity.ok(response);
     }
 }

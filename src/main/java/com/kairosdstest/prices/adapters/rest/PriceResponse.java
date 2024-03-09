@@ -1,15 +1,18 @@
 package com.kairosdstest.prices.adapters.rest;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * DTO for representing pricing information in the response.
  */
-@Builder
 @Getter
+@Setter
+@NoArgsConstructor
 public class PriceResponse {
 
     private Long productId;
@@ -17,5 +20,5 @@ public class PriceResponse {
     private Integer priceList;
     private Date startDate;
     private Date endDate;
-    private Double finalPrice;
+    private BigDecimal price;
 }

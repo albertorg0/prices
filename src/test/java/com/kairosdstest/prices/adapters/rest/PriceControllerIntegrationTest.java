@@ -44,7 +44,7 @@ public class PriceControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productId").value(productId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.brandId").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.priceList").value(priceList))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.finalPrice").value(finalPrice));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(finalPrice));
     }
 
 }

@@ -1,6 +1,6 @@
 # Prices
 
-Technical test for Kairos DS selection process.
+API to provides a product's current price given its brand on a specific date.
 
 ## Getting Started
 
