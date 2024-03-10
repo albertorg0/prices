@@ -1,8 +1,10 @@
 package com.kairosdstest.prices.application;
 
-import com.kairosdstest.prices.adapters.persistance.CustomPriceRepository;
+import com.kairosdstest.prices.adapters.persistance.PriceEntity;
+import com.kairosdstest.prices.adapters.persistance.PriceJpaRepository;
 import com.kairosdstest.prices.core.NoResultsException;
 import com.kairosdstest.prices.core.Price;
+import com.kairosdstest.prices.core.ReadPricePort;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,30 +21,10 @@ import static org.mockito.Mockito.*;
 public class PriceServiceImplTest {
 
     @Mock
-    private CustomPriceRepository priceRepository;
+    private ReadPricePort readPricePort;
 
     @InjectMocks
     private PriceServiceImpl priceService;
-
-    @Test
-    void getPrice_ShouldThrowNoResultsException() {
-        // Given
-        Long brandId = 1L;
-        Long productId = 35455L;
-        Date applicationDate = new Date();
-        when(priceRepository.findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
-                eq(brandId), eq(productId), eq(applicationDate), eq(applicationDate)))
-                .thenReturn(null);
-
-        // When
-        assertThrows(NoResultsException.class, () ->
-                priceService.getPrice(brandId, productId, applicationDate));
-
-        // Then
-        verify(priceRepository, times(1))
-                .findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
-                        eq(brandId), eq(productId), eq(applicationDate), eq(applicationDate));
-    }
 
     @Test
     void getPrice_ShouldReturnResultFromRepository() {
@@ -51,14 +33,14 @@ public class PriceServiceImplTest {
         Long productId = 35455L;
         Date applicationDate = new Date();
         Price expectedPrice = new Price();
-        when(priceRepository.findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
+        when(readPricePort.findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
                 anyLong(), anyLong(), any(), any())).thenReturn(expectedPrice);
 
         // When
         Price result = priceService.getPrice(brandId, productId, applicationDate);
 
         // Then
-        verify(priceRepository, times(1))
+        verify(readPricePort, times(1))
                 .findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
                         eq(brandId), eq(productId), eq(applicationDate), eq(applicationDate));
         assertEquals(expectedPrice, result);

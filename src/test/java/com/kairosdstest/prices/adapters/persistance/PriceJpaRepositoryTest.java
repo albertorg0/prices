@@ -1,6 +1,5 @@
 package com.kairosdstest.prices.adapters.persistance;
 
-import com.kairosdstest.prices.core.Price;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -8,23 +7,23 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-public class CustomPriceRepositoryTest {
+public class PriceJpaRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private CustomPriceRepository customPriceRepository;
+    private PriceJpaRepository priceJpaRepository;
 
     @Test
     void whenFindFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc_ShouldReturnMatchingPrice() {
         // Given
-        Price price = new Price();
+        PriceEntity price = new PriceEntity();
         price.setBrandId(1L);
         price.setProductId(35455L);
         price.setStartDate(new Date(System.currentTimeMillis() - 1000));
@@ -35,7 +34,7 @@ public class CustomPriceRepositoryTest {
         entityManager.flush();
 
         // When
-        Price foundPrice = customPriceRepository.findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
+        Optional<PriceEntity> foundPrice = priceJpaRepository.findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
                 1L,
                 35455L,
                 new Date(System.currentTimeMillis()),
@@ -43,13 +42,14 @@ public class CustomPriceRepositoryTest {
         );
 
         // Then
-        assertEquals(price, foundPrice);
+        assertTrue(foundPrice.isPresent());
+        assertEquals(price, foundPrice.get());
     }
 
     @Test
     void whenFindFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc_ShouldReturnNullIfNotFound() {
         // When
-        Price foundPrice = customPriceRepository.findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
+        Optional<PriceEntity> foundPrice = priceJpaRepository.findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
                 1L,
                 35455L,
                 new Date(System.currentTimeMillis()),
@@ -57,6 +57,6 @@ public class CustomPriceRepositoryTest {
         );
 
         // Then
-        assertNull(foundPrice);
+        assertTrue(foundPrice.isEmpty());
     }
 }
