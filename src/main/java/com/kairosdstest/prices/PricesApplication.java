@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @SpringBootApplication
 public class PricesApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PricesApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PricesApplication.class, args);
+    }
 
 }

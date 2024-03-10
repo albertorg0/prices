@@ -1,6 +1,6 @@
 # Prices
 
-API to provides a product's current price given its brand on a specific date.
+API to provide a product's current price given its brand on a specific date.
 
 ## Getting Started
 

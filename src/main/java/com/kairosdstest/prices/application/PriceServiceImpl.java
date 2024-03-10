@@ -1,7 +1,6 @@
 package com.kairosdstest.prices.application;
 
 
-import com.kairosdstest.prices.core.NoResultsException;
 import com.kairosdstest.prices.core.Price;
 import com.kairosdstest.prices.core.ReadPricePort;
 import com.kairosdstest.prices.core.PriceService;

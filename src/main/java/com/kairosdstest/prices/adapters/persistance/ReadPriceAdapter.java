@@ -17,15 +17,16 @@ public class ReadPriceAdapter implements ReadPricePort {
 
     @Override
     public Price findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
-            Long brandId, Long productId, Date startDate, Date endDate) throws NoResultsException {
+            Long brandId, Long productId, Date startDate, Date endDate) {
         ModelMapper modelMapper = new ModelMapper();
-        PriceEntity price = priceJpaRepository
+        return priceJpaRepository
                 .findFirstByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityDesc(
-                        brandId, productId, startDate, endDate).orElseThrow(() -> new NoResultsException(
+                        brandId, productId, startDate, endDate)
+                .map(priceEntity -> modelMapper.map(priceEntity, Price.class))
+                .orElseThrow(() -> new NoResultsException(
                         "No results found for brandId: "
                                 + brandId + ", productId: "
                                 + productId + " and date: "
                                 + startDate.toString()));
-        return modelMapper.map(price, Price.class);
     }
 }

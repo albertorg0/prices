@@ -1,8 +1,5 @@
 package com.kairosdstest.prices.application;
 
-import com.kairosdstest.prices.adapters.persistance.PriceEntity;
-import com.kairosdstest.prices.adapters.persistance.PriceJpaRepository;
-import com.kairosdstest.prices.core.NoResultsException;
 import com.kairosdstest.prices.core.Price;
 import com.kairosdstest.prices.core.ReadPricePort;
 import org.junit.jupiter.api.Test;
@@ -13,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
